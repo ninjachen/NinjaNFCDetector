@@ -3,11 +3,16 @@ package com.example.ninja.myapplication;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.ninja.myapplication.CardModel.CardManager;
 
 
 public class NFCActivity extends ActionBarActivity {
@@ -37,7 +42,16 @@ public class NFCActivity extends ActionBarActivity {
         if (!mNfcAdapter.isEnabled()) {
             mTextView.setText("NFC is disabled.");
         } else {
-            mTextView.setText(R.string.explanation);
+            try {
+                final Parcelable p = getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
+                Log.d("NFCTAG", getIntent().getAction());
+                String htmldata = CardManager.load(p, getResources());
+                mTextView.setText(Html.fromHtml(htmldata));
+            } catch (Exception e) {
+                e.printStackTrace();
+                mTextView.setText("some thing errors");
+            }
+//            mTextView.setText(R.string.explanation);
         }
 
         handleIntent(getIntent());
