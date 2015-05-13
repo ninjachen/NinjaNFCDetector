@@ -4,5 +4,6 @@
     <string name="app_name">My Application</string>
 
     <string name="hello_square">Hello Ninja, Its Square World!</string>
+    <string name="hello_round">Hello Ninja, Its Round World!</string>
 
 </resources>
